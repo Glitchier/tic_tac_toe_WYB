@@ -12,10 +12,12 @@ const Navbar = () => {
         <p className="text-xl tracking-wider font-medium">TicTacToe</p>
       </div>
       <div className="flex justify-center items-center gap-4">
-        <IoLogoGithub
-          size={"1.5rem"}
-          className="cursor-pointer hover:scale-105"
-        />
+        <a href="https://github.com/Glitchier/tic_tac_toe_WYB" target="_blank">
+          <IoLogoGithub
+            size={"1.5rem"}
+            className="cursor-pointer hover:scale-105"
+          />
+        </a>
         <ModeToggle />
       </div>
     </Card>
