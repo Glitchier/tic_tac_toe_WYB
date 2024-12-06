@@ -11,9 +11,9 @@ const Navbar = () => {
         <Image src="/tictactoe.svg" alt="logo" height={28} width={28} />
         <p className="text-xl tracking-wider font-medium">TicTacToe</p>
       </div>
-      <div className="flex justify-center items-center gap-6">
+      <div className="flex justify-center items-center gap-4">
         <IoLogoGithub
-          size={"2rem"}
+          size={"1.5rem"}
           className="cursor-pointer hover:scale-105"
         />
         <ModeToggle />
