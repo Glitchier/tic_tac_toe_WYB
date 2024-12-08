@@ -30,6 +30,7 @@ const Start = () => {
   }); // State for Player 2.
   const [gridSize, setGridSize] = useState<number>(3); // State for the grid size (3x3 by default).
   const [streak, setStreak] = useState<number>(3); // State for the win streak required to win.
+  const [winReqStreak, setWinReqStreak] = useState<number>(3); // State for the winning required to for the end winner.
 
   // Handles the form submission and triggers the start of the game.
   const handleSubmit = (e: FormEvent) => {
@@ -41,7 +42,13 @@ const Start = () => {
     <>
       {start ? (
         // Renders the Game component with the selected settings if the game has started.
-        <Game p1={player1} p2={player2} gridSize={gridSize} wStreak={streak} />
+        <Game
+          p1={player1}
+          p2={player2}
+          gridSize={gridSize}
+          wStreak={streak}
+          winReqStreak={winReqStreak}
+        />
       ) : (
         // Form for entering player names, grid size, and win streak.
         <form
@@ -115,8 +122,21 @@ const Start = () => {
                 placeholder="Number of wins"
                 className="w-[180px]"
                 min={3}
+                max={gridSize}
                 defaultValue={streak}
                 onChange={(e) => setStreak(parseInt(e.target.value))}
+              />
+            </div>
+            {/* Min win required */}
+            <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+              <label className="text-nowrap text-lg">Win Required: </label>
+              <Input
+                type="number"
+                placeholder="Number of wins"
+                className="w-[180px]"
+                min={3}
+                defaultValue={3}
+                onChange={(e) => setWinReqStreak(parseInt(e.target.value))}
               />
             </div>
           </div>

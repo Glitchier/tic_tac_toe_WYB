@@ -8,17 +8,24 @@ type Props = {
   winner: string | null;
   p1: PlayerProps;
   p2: PlayerProps;
-  wStreak: number;
   p1Score: number;
   p2Score: number;
+  winReqStreak: number;
 };
 
-const WinnerBanner = ({ winner, p1, p2, wStreak, p1Score, p2Score }: Props) => {
+const WinnerBanner = ({
+  winner,
+  p1,
+  p2,
+  p1Score,
+  p2Score,
+  winReqStreak,
+}: Props) => {
   const [visible, setVisible] = useState<boolean>(true);
 
   if (
     visible &&
-    (p1Score === wStreak || p2Score === wStreak) &&
+    (p1Score === winReqStreak || p2Score === winReqStreak) &&
     Boolean(winner)
   ) {
     return (
@@ -27,7 +34,7 @@ const WinnerBanner = ({ winner, p1, p2, wStreak, p1Score, p2Score }: Props) => {
           <p className="text-5xl">🎉🎉🎉</p>
           <p className="text-xl">
             <span className="text-3xl">🏅</span>{" "}
-            {p1Score > p2Score ? p1.name : p2.name} Wins{" "}
+            {winner === p1.symbol ? p1.name : p2.name} Wins{" "}
             <span className="text-3xl">🏅</span>
           </p>
           <div className="absolute top-0 right-0">

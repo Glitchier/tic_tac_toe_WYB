@@ -15,9 +15,10 @@ interface GameProps {
   p2: PlayerProps;
   gridSize: number;
   wStreak: number;
+  winReqStreak: number;
 }
 
-const Game = ({ p1, p2, gridSize, wStreak }: GameProps) => {
+const Game = ({ p1, p2, gridSize, wStreak, winReqStreak }: GameProps) => {
   const [squares, setSquares] = useState(Array(gridSize * gridSize).fill(null));
   const [curPlayer, setCurPlayer] = useState<PlayerProps>(
     Math.round(Math.random() * 1) === 1
@@ -49,7 +50,7 @@ const Game = ({ p1, p2, gridSize, wStreak }: GameProps) => {
     // Check in a specific direction for matches
     const checkDirection = (dr: number, dc: number): boolean => {
       let count = 1; // Include the current tile
-      for (let step = 1; step < gridSize; step++) {
+      for (let step = 1; step < wStreak; step++) {
         const r = row + dr * step;
         const c = col + dc * step;
         if (
@@ -62,7 +63,7 @@ const Game = ({ p1, p2, gridSize, wStreak }: GameProps) => {
           break;
         count++;
       }
-      for (let step = 1; step < gridSize; step++) {
+      for (let step = 1; step < wStreak; step++) {
         const r = row - dr * step;
         const c = col - dc * step;
         if (
@@ -75,7 +76,7 @@ const Game = ({ p1, p2, gridSize, wStreak }: GameProps) => {
           break;
         count++;
       }
-      return count >= gridSize;
+      return count >= wStreak;
     };
 
     // Check all directions: horizontal, vertical, diagonal (two)
@@ -140,9 +141,13 @@ const Game = ({ p1, p2, gridSize, wStreak }: GameProps) => {
         </Card>
       </div>
       <div className="flex justify-center items-center gap-2 tracking-wider mt-4">
+        <p className="text-xl font-medium"> Win Streak:</p>
+        <p className="text-xl font-bold">{wStreak}</p>
+      </div>
+      <div className="flex justify-center items-center gap-2 tracking-wider">
         <p className="text-4xl">🎯</p>
-        <p className="text-2xl font-medium"> Win Streak:</p>
-        <p className="text-2xl font-bold">{wStreak}</p>
+        <p className="text-2xl font-medium"> Win Required:</p>
+        <p className="text-2xl font-bold">{winReqStreak}</p>
       </div>
       <div className="flex justify-center items-center gap-8 mb-4">
         <p className="text-xl text-nowrap tracking-wider">
@@ -173,9 +178,9 @@ const Game = ({ p1, p2, gridSize, wStreak }: GameProps) => {
           winner={winner}
           p1={p1}
           p2={p2}
-          wStreak={wStreak}
           p1Score={p1States}
           p2Score={p2States}
+          winReqStreak={winReqStreak}
         />
       ) : checkDraw() ? (
         <div className="fixed h-[100vh] w-full top-0 left-0 right-0 min-w-[400px] flex justify-center items-center px-4 sm:px-8 md:px-[4vw] lg:px-[6vw] backdrop-blur-sm">
